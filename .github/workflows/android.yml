@@ -1,0 +1,59 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8      
+    - name: Build with Gradle
+      run: chmod a=rwx ./gradlew
+    - name: Sudo install
+      run: sudo apt update && sudo apt install curl
+    - name: Build with Gradle
+      run: ./gradlew build :app:build
+    - name: check
+      run: ls /home/runner/work/apps-android-wikipedia/apps-android-wikipedia/app/build/reports/
+    - name: check2
+      run: ls /home/runner/work/apps-android-wikipedia/apps-android-wikipedia/app/build/
+    - name: check3
+      run: ls /home/runner/work/apps-android-wikipedia/
+    - name: check4
+      run: cat /home/runner/work/apps-android-wikipedia/apps-android-wikipedia/app/build/reports/lint-results.html
+    - name: navigating
+      run: cd /home/runner/work/apps-android-wikipedia/apps-android-wikipedia
+    - name: ls
+      run: ls
+    - name: ls app
+      run: ls app
+    - name: Git init
+      run: git init
+    - name: Git add
+      run: git add .github
+    - name: Git add .gradle
+      run: git add .gradle
+    - name: .appbuild
+      run: git add app/build
+    - name: .apps
+      run: git add make.apk
+    - name: Git create
+      run: git config --global user.email "user@xaker.tk"
+    - name: Github Identify
+      run: git config --global user.name "USER"
+    - name: Gen random string
+      run: echo 'No random availible'
+    - name: Git commit
+      run: git commit -m 'resources compiled'
+    - name: Git Push
+      run: git push -u origin master
